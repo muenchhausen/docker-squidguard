@@ -33,11 +33,11 @@ Please refer to [sameersbn/docker-squid](https://github.com/sameersbn/docker-squ
 Run the downloaded image
 
 ```bash
-docker run --name='squidguard' -it --rm -p 3128:3128 muenchhausen/squidguard:latest
+docker run --name='squidguard' -it --rm -p 3128:3128 muenchhausen/docker-squidguard:latest
 ```
 or as daemon
 ```bash
-docker run -d --name='squidguard' -it -p 3128:3128 muenchhausen/squidguard:latest
+docker run -d --name='squidguard' -it -p 3128:3128 muenchhausen/docker-squidguard:latest
 ```
 
 # Test it 
