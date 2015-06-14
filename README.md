@@ -16,7 +16,7 @@ this Dockerfile is an [squidGuard](http://www.squidguard.org/) addition to [same
 Pull the image from the docker registry e.g.
 
 ```bash
-docker pull muenchhausen/squidguard:latest
+docker pull muenchhausen/docker-squidguard
 ```
 
 or build it
