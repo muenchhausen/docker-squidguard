@@ -49,5 +49,5 @@ For debugging and maintenance purposes you may want access the containers shell 
 
 ```docker exec -it squidguard bash```
 or
-```docker ps
-docker exec -it <container-id> bash```
+```docker ps```
+```docker exec -it <container-id> bash```
