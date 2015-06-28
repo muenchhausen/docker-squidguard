@@ -17,8 +17,7 @@ cd docker-squidguard
 docker build --tag="$USER/squidguard" .```
 
 run your build:
-```bash
-docker run --name='squidguard' -it --rm -p 3128:3128 "$USER/squidguard"```
+```docker run --name='squidguard' -it --rm -p 3128:3128 "$USER/squidguard"```
 
 Please refer to [sameersbn/docker-squid](https://github.com/sameersbn/docker-squid) for details!
 
@@ -32,9 +31,11 @@ or as daemon
 
 ```docker run -d --name='squidguard' -it -p 3128:3128 muenchhausen/docker-squidguard:latest```
 
-or run it including WPAT proxy autoconfig 
-```bash
-docker run --name='squidguard' -it --env WPAT_IP=192.168.59.103 --env WPAT_NOPROXY_NET=192.168.59.0 --env WPAT_NOPROXY_MASK=255.255.255.0 --rm -p 3128:3128 -p 80:80 muenchhausen/docker-squidguard:latest```
+or run it including WPAT proxy autoconfig so your Operating system will find the settings automatically based on your DHCP settings:
+ 
+```docker run --name='squidguard' -it --env WPAT_IP=192.168.59.103 --env WPAT_NOPROXY_NET=192.168.59.0 --env WPAT_NOPROXY_MASK=255.255.255.0 --rm -p 3128:3128 -p 80:80 muenchhausen/docker-squidguard:latest```
+
+Please add a cusom-proxy-server option 252 to your DHCP server. Use "http://${WPAT_IP}/wpat.dat" e.g. "http://192.168.59.103/wpat.dat" as your option value. See [squidGuard Wiki](http://wiki.squid-cache.org/SquidFaq/ConfiguringBrowsers#Automatic_WPAD_with_DHCP) for further details.
 
 # Test it 
 
@@ -58,8 +59,7 @@ The central configuration file of squidGuard is `squidGuard.conf`. You can custo
 
 For debugging and maintenance purposes you may want access the containers shell. Either add after the run command or tun e.g.
 
-```bash
-docker exec -it "$USER/squidguard" bash```
+```docker exec -it "$USER/squidguard" bash```
 
 or
 ```docker ps```
