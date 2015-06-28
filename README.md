@@ -2,7 +2,7 @@
 
 this Dockerfile is an [squidGuard](http://www.squidguard.org/) addition to [sameersbn/docker-squid](https://github.com/sameersbn/docker-squid). I find squidGuard very useful to limit access to certain internet pages and to reduce the risk for downloading dangerous software. A central filtering solution is preferred especially if you have a family with children and different devices.
 
-This image includes also automatic proxy discovery based on WPAT and DHCP in a very early vesion. Here a Webserver is required that serves wpat.dat.
+This image includes also automatic proxy discovery based on WPAT and DHCP. Here a Webserver is required that serves wpat.dat.
 
 # Installation
 
@@ -12,12 +12,14 @@ Pull the image from the docker registry e.g.
 
 or build it
 
-```git clone https://github.com/muenchhausen/docker-squidguard.git
-cd docker-squidguard
-docker build --tag="$USER/squidguard" .```
+```git clone https://github.com/muenchhausen/docker-squidguard.git```
+
+```cd docker-squidguard```
+
+```docker build --tag="$USER/squidguard" .```
 
 run your build:
-```docker run --name='squidguard' -it --rm -p 3128:3128 "$USER/squidguard"```
+```docker run --name='squidguard' -it --rm -p 3128:3128 "$USER/squidguard" ```
 
 Please refer to [sameersbn/docker-squid](https://github.com/sameersbn/docker-squid) for details!
 
@@ -35,19 +37,19 @@ or run it including WPAT proxy autoconfig so your Operating system will find the
 
 ```docker run --name='squidguard' -it --env WPAT_IP=192.168.59.103 --env WPAT_NOPROXY_NET=192.168.59.0 --env WPAT_NOPROXY_MASK=255.255.255.0 --rm -p 3128:3128 -p 80:80 muenchhausen/docker-squidguard:latest```
 
-Please add a cusom-proxy-server option 252 to your DHCP server. Use "http://${WPAT_IP}/wpat.dat" e.g. "http://192.168.59.103/wpat.dat" as your option value. See [squidGuard Wiki](http://wiki.squid-cache.org/SquidFaq/ConfiguringBrowsers#Automatic_WPAD_with_DHCP) for further details.
+To use WPAT, add a cusom-proxy-server option 252 to your DHCP server. Use "http://${WPAT_IP}/wpat.dat" e.g. "http://192.168.59.103/wpat.dat" as your option value. See [squidGuard Wiki](http://wiki.squid-cache.org/SquidFaq/ConfiguringBrowsers#Automatic_WPAD_with_DHCP) for further details.
 
 # Test it 
 
-here you should get the page:
+here curl should return the page:
 ```curl --proxy 192.168.59.103:3128 https://en.wikipedia.org/wiki/Main_Page```
 
-here an example of an advertising domain from the adv blacklist - you should get blocked:
+here an example of an advertising domain from the adv blacklist - curl gets blocked:
 ```curl --proxy 192.168.59.103:3128 http://www.linkadd.de```
 
 Finally configure docker host IP and port 3128 in your browser proxy settings or operating system proxy configuration.
 
-If you have decided for the autoproxy variant, just do a DHCP release :)
+Or - if you decided for the WPAT autoproxy variant, just do now a DHCP release and you get your proxy settings :)
 
 
 # Configuration
@@ -61,8 +63,8 @@ The central configuration file of squidGuard is `squidGuard.conf`. You can custo
 
 For debugging and maintenance purposes you may want access the containers shell. Either add after the run command or tun e.g.
 
-```docker exec -it "$USER/squidguard" bash```
+```docker exec -it "$USER/squidguard" bash  ```
 
 or
 ```docker ps```
-```docker exec -it <container-id> bash```
+```docker exec -it <container-id> bash   ```
