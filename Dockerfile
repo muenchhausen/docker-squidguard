@@ -2,7 +2,11 @@ FROM sameersbn/squid:latest
 MAINTAINER derk@muenchhausen.de
 
 RUN apt-get update \
- && apt-get install -y squidguard
+ && apt-get install -y squidguard \ 
+ && apt-get install -y apache2
+
+RUN sudo echo 'AddType application/x-ns-proxy-autoconfig .dat' >> /etc/apache2/httpd.conf
+ADD wpat.dat /var/www/html/wpat.dat
 
 RUN wget http://www.shallalist.de/Downloads/shallalist.tar.gz \
  && tar -xzf shallalist.tar.gz -C /var/lib/squidguard/db \
@@ -12,9 +16,12 @@ RUN wget http://www.shallalist.de/Downloads/shallalist.tar.gz \
 
 ADD squidGuard.conf /etc/squidguard/squidGuard.conf
 
+ADD startSquidGuard /startSquidGuard
+RUN sudo chmod a+x /startSquidGuard
+
 RUN sudo -u proxy squidGuard -C all 
 
-EXPOSE 3128
+EXPOSE 3128 80
 VOLUME ["/var/spool/squid3"]
 
-CMD ["/start"]
+CMD ["/startSquidGuard"]

@@ -1,0 +1,16 @@
+#!/bin/bash
+set -e
+
+echo "running startSquidGuard with WPAT_IP=${WPAT_IP} WPAT_NOPROXY_NET=${WPAT_NOPROXY_NET} WPAT_NOPROXY_MASK=${WPAT_NOPROXY_MASK}"
+
+if [  "${WPAT_IP}" != "" ]; then
+	sed 's/{{WPAT_IP}}/'"${WPAT_IP}"'/' -i /var/www/html/wpat.dat
+	sed 's/{{WPAT_NOPROXY_NET}}/'"${WPAT_NOPROXY_NET}"'/' -i /var/www/html/wpat.dat
+	sed 's/{{WPAT_NOPROXY_MASK}}/'"${WPAT_NOPROXY_MASK}"'/' -i /var/www/html/wpat.dat
+
+	# start apache to serve wpat.dat file
+	sudo /etc/init.d/apache2 restart
+fi
+
+# run original squid start script
+exec /start

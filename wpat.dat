@@ -1,0 +1,7 @@
+function FindProxyForURL(url, host)
+{
+	if (isInNet(host, "{{WPAT_NOPROXY_NET}}", "{{WPAT_NOPROXY_MASK}}"))
+		return "DIRECT";
+	else
+		return "PROXY {{WPAT_IP}}:3128";
+}

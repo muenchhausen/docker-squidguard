@@ -11,6 +11,8 @@
 
 this Dockerfile is an [squidGuard](http://www.squidguard.org/) addition to [sameersbn/docker-squid](https://github.com/sameersbn/docker-squid). I find squidGuard very useful to limit access to certain internet pages and to reduce the risk for downloading dangerous software. A central filtering solution is preferred especially if you have a family with children and different devices.
 
+This image includes also automatic proxy discovery based on WPAT and DHCP in a very early vesion. Here a Webserver is required that serves wpat.dat.
+
 # Installation
 
 Pull the image from the docker registry e.g.
@@ -26,6 +28,11 @@ git clone https://github.com/muenchhausen/docker-squidguard.git
 cd docker-squidguard
 docker build --tag="$USER/squidguard" .
 ```
+run your build:
+```bash
+docker run --name='squidguard' -it --rm -p 3128:3128 "$USER/squidguard"
+```
+
 Please refer to [sameersbn/docker-squid](https://github.com/sameersbn/docker-squid) for details!
 
 # Quick Start
@@ -38,6 +45,11 @@ docker run --name='squidguard' -it --rm -p 3128:3128 muenchhausen/docker-squidgu
 or as daemon
 ```bash
 docker run -d --name='squidguard' -it -p 3128:3128 muenchhausen/docker-squidguard:latest
+```
+
+or run it including WPAT proxy autoconfig 
+```bash
+docker run --name='squidguard' -it --env WPAT_IP=192.168.59.103 --env WPAT_NOPROXY_NET=192.168.59.0 --env WPAT_NOPROXY_MASK=255.255.255.0 --rm -p 3128:3128 -p 80:80 muenchhausen/docker-squidguard:latest
 ```
 
 # Test it 
@@ -63,10 +75,11 @@ The central configuration file of squidGuard is `squidGuard.conf`. You can custo
 
 # Shell Access
 
-For debugging and maintenance purposes you may want access the containers shell via `docker exec` command.
+
+For debugging and maintenance purposes you may want access the containers shell. Either add after the run command or tun e.g.
 
 ```bash
-docker exec -it squidguard bash
+docker exec -it "$USER/squidguard" bash
 ```
 or
 ```bash
