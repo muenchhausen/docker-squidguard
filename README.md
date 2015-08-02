@@ -68,3 +68,7 @@ For debugging and maintenance purposes you may want access the containers shell.
 or
 ```docker ps```
 ```docker exec -it <container-id> bash   ```
+
+# Autostart the container
+
+add the parameter --restart=always to your docker run command.
