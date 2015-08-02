@@ -7,6 +7,7 @@ RUN apt-get update \
 
 RUN sudo echo 'AddType application/x-ns-proxy-autoconfig .dat' >> /etc/apache2/httpd.conf
 ADD wpat.dat /var/www/html/wpat.dat
+ADD block.html /var/www/html/block.html
 
 RUN wget http://www.shallalist.de/Downloads/shallalist.tar.gz \
  && tar -xzf shallalist.tar.gz -C /var/lib/squidguard/db \
