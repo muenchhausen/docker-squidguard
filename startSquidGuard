@@ -13,4 +13,4 @@ if [  "${WPAT_IP}" != "" ]; then
 fi
 
 # run original squid start script
-exec /start
+exec /sbin/entrypoint.sh

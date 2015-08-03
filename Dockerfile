@@ -17,6 +17,7 @@ RUN wget http://www.shallalist.de/Downloads/shallalist.tar.gz \
 
 ADD squidGuard.conf /etc/squidguard/squidGuard.conf
 
+
 ADD startSquidGuard /startSquidGuard
 RUN sudo chmod a+x /startSquidGuard
 
