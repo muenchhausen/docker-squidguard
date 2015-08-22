@@ -7,10 +7,10 @@ if [  "${WPAT_IP}" != "" ]; then
 	sed 's/{{WPAT_IP}}/'"${WPAT_IP}"'/' -i /var/www/html/wpat.dat
 	sed 's/{{WPAT_NOPROXY_NET}}/'"${WPAT_NOPROXY_NET}"'/' -i /var/www/html/wpat.dat
 	sed 's/{{WPAT_NOPROXY_MASK}}/'"${WPAT_NOPROXY_MASK}"'/' -i /var/www/html/wpat.dat
-
-	# start apache to serve wpat.dat file
-	sudo /etc/init.d/apache2 restart
 fi
+
+# start apache to serve wpat.dat file and or block.html
+sudo /etc/init.d/apache2 restart
 
 # run original squid start script
 exec /sbin/entrypoint.sh
