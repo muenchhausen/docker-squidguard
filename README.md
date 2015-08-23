@@ -2,7 +2,7 @@
 
 this image is an [squidGuard](http://www.squidguard.org/) addition to [sameersbn/docker-squid](https://github.com/sameersbn/docker-squid). I find squidGuard very useful to limit access to certain internet pages and to reduce the risk for downloading dangerous software. A central filtering solution is preferred especially if you have a family with children and different devices.
 
-**Important: This Docker image uses whitelists and blacklists from an external source - here from [shallalist.de](http://www.shallalist.de/) with some license restrictions especially for commercial use. If a local configuration of whitelists and blacklists is sufficient for you, please use my other docker image [muenchhausen/docker-squidguard-simple](https://hub.docker.com/r/muenchhausen/docker-squidguard-simple/) and [source](https://github.com/muenchhausen/docker-squidguard-simple) instead.**
+**Important: This Docker image uses whitelists and blacklists from an external source - here from [shallalist](http://www.shallalist.de/) with some license restrictions especially for commercial use. If a local configuration of whitelists and blacklists is sufficient for you, please use my other docker image [muenchhausen/docker-squidguard-simple](https://hub.docker.com/r/muenchhausen/docker-squidguard-simple/) and [source](https://github.com/muenchhausen/docker-squidguard-simple) instead.**
 
 This image includes also automatic proxy discovery based on WPAT and DHCP. Here a Webserver is required that serves wpat.dat.
 
@@ -12,7 +12,9 @@ Pull the image from the docker registry e.g.
 
 ```docker pull muenchhausen/docker-squidguard```
 
-or build it: This is the recommended way: A rebuild will update the OS packages and the whitelists and blacklists from [shallalist.de](http://www.shallalist.de/): 
+or build it: 
+
+**This is the recommended way: A rebuild will update the OS packages and the whitelists and blacklists from shallalist.de:** 
 
 ```git clone https://github.com/muenchhausen/docker-squidguard.git```
 
