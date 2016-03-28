@@ -11,8 +11,12 @@ fi
 if [ ! -f /etc/squidguard/squidGuard.conf ]; then
 	if [  "${SQUID_CONFIG_SOURCE}" != "" ]; then
 		echo "no configuration found -> use ${SQUID_CONFIG_SOURCE}/squidGuard.conf"
+		
+		# test mac os
+		sudo usermod -u 1000 proxy
+		
 		ln -s ${SQUID_CONFIG_SOURCE}/squidGuard.conf /etc/squidguard/squidGuard.conf
-		sudo chown -R proxy:proxy ${SQUID_CONFIG_SOURCE}
+		echo "ok1"
 	elif [  "${UPDATE_BLACKLIST_URL}" != "" ]; then
 	    echo "no configuration found -> use /sample-config-blacklist"
 		ln -s /sample-config-blacklist/squidGuard.conf /etc/squidguard/squidGuard.conf
@@ -20,9 +24,14 @@ if [ ! -f /etc/squidguard/squidGuard.conf ]; then
 	    echo "no configuration found -> use /sample-config-simple"
 		ln -s /sample-config-simple/squidGuard.conf /etc/squidguard/squidGuard.conf
 	fi
+	echo "ok2"
 	sudo chown -R proxy:proxy /var/lib/squidguard/db
-	sudo -u proxy squidGuard -C all 
+	echo "ok3"
+	
+	echo "ok4"
 fi
+echo "ok5"
+sudo -u proxy squidGuard -C all
 
 echo "running startSquidGuard with WPAT_IP=${WPAT_IP} WPAT_NOPROXY_NET=${WPAT_NOPROXY_NET} WPAT_NOPROXY_MASK=${WPAT_NOPROXY_MASK}"
 

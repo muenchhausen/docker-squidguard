@@ -14,12 +14,14 @@ RUN echo "redirect_program /usr/bin/squidGuard -c /etc/squidguard/squidGuard.con
 RUN rm /etc/squidguard/squidGuard.conf
 ADD sample-config-blacklist /sample-config-blacklist
 ADD sample-config-simple /sample-config-simple
-RUN chown -R proxy:proxy /sample-config-simple /sample-config-blacklist
+RUN mkdir /custom-config
+RUN chown -R proxy:proxy /sample-config-simple /sample-config-blacklist /custom-config
 
 ADD startSquidGuard /startSquidGuard
 RUN chmod a+x /startSquidGuard
 
 EXPOSE 3128 80
 VOLUME ["/var/spool/squid3"]
+VOLUME ["/custom-config"]
 
 CMD ["/startSquidGuard"]

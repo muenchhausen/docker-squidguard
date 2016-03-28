@@ -5,11 +5,14 @@ squidguard:
     - WPAT_IP=192.168.99.100
     - WPAT_NOPROXY_NET=192.168.0.0
     - WPAT_NOPROXY_MASK=255.255.0.0
-    - UPDATE_BLACKLIST_URL=http://www.shallalist.de/Downloads/shallalist.tar.gz
-    #- SQUID_CONFIG_SOURCE=/myconfig
+    #- UPDATE_BLACKLIST_URL=http://www.shallalist.de/Downloads/shallalist.tar.gz
+    - SQUID_CONFIG_SOURCE_UID=1000          # if MAC OS is used: UserID for user proxy
+    - SQUID_CONFIG_SOURCE=/custom-config
   ports:
     - "3128:3128"
     - "80:80"
   expose:
     - 3128
     - 80
+  volumes:
+    - /Users/derk/Documents/GitProjects/docker-squidguard/myconfig:/custom-config
