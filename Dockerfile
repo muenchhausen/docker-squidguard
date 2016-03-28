@@ -14,6 +14,7 @@ RUN echo "redirect_program /usr/bin/squidGuard -c /etc/squidguard/squidGuard.con
 RUN rm /etc/squidguard/squidGuard.conf
 ADD sample-config-blacklist /sample-config-blacklist
 ADD sample-config-simple /sample-config-simple
+RUN chown -R proxy:proxy /sample-config-simple /sample-config-blacklist
 
 ADD startSquidGuard /startSquidGuard
 RUN chmod a+x /startSquidGuard

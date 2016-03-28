@@ -6,7 +6,7 @@ squidguard:
     - WPAT_NOPROXY_NET=192.168.0.0
     - WPAT_NOPROXY_MASK=255.255.0.0
     - UPDATE_BLACKLIST_URL=http://www.shallalist.de/Downloads/shallalist.tar.gz
-    - SQUID_CONFIG_SOURCE=myconfig
+    #- SQUID_CONFIG_SOURCE=/myconfig
   ports:
     - "3128:3128"
     - "80:80"

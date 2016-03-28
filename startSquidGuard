@@ -9,18 +9,18 @@ if [  "${UPDATE_BLACKLIST_URL}" != "" ]; then
 fi
 
 if [ ! -f /etc/squidguard/squidGuard.conf ]; then
-	if [  "${UPDATE_BLACKLIST_URL}" != "" ]; then
-	    echo "no configuration found -> copy from /sample-config-blacklist"
-		sudo cp /sample-config-blacklist/squidGuard.conf /etc/squidguard/squidGuard.conf
+	if [  "${SQUID_CONFIG_SOURCE}" != "" ]; then
+		echo "no configuration found -> use ${SQUID_CONFIG_SOURCE}/squidGuard.conf"
+		ln -s ${SQUID_CONFIG_SOURCE}/squidGuard.conf /etc/squidguard/squidGuard.conf
+		sudo chown -R proxy:proxy ${SQUID_CONFIG_SOURCE}
+	elif [  "${UPDATE_BLACKLIST_URL}" != "" ]; then
+	    echo "no configuration found -> use /sample-config-blacklist"
+		ln -s /sample-config-blacklist/squidGuard.conf /etc/squidguard/squidGuard.conf
 	else
-	    echo "no configuration found -> copy from /sample-config-simple"
-		sudo cp /sample-config-simple/squidGuard.conf /etc/squidguard/squidGuard.conf
-		sudo mkdir -p /var/lib/squidguard/db/WL/
-		sudo cp /sample-config-simple/whiteUrls /var/lib/squidguard/db/WL/
-		sudo cp /sample-config-simple/whiteDomains /var/lib/squidguard/db/WL/
-		sudo chown proxy:proxy /var/lib/squidguard/db -R 
+	    echo "no configuration found -> use /sample-config-simple"
+		ln -s /sample-config-simple/squidGuard.conf /etc/squidguard/squidGuard.conf
 	fi
-
+	sudo chown -R proxy:proxy /var/lib/squidguard/db
 	sudo -u proxy squidGuard -C all 
 fi
 
