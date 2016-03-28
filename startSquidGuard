@@ -1,6 +1,29 @@
 #!/bin/bash
 set -e
 
+if [  "${UPDATE_BLACKLIST_URL}" != "" ]; then
+	sudo wget ${UPDATE_BLACKLIST_URL} \
+ 		&& tar -xzf shallalist.tar.gz -C /var/lib/squidguard/db \
+ 		&& rm shallalist.tar.gz \
+ 		&& chown proxy:proxy /var/lib/squidguard/db -R
+fi
+
+if [ ! -f /etc/squidguard/squidGuard.conf ]; then
+	if [  "${UPDATE_BLACKLIST_URL}" != "" ]; then
+	    echo "no configuration found -> copy from /sample-config-blacklist"
+		sudo cp /sample-config-blacklist/squidGuard.conf /etc/squidguard/squidGuard.conf
+	else
+	    echo "no configuration found -> copy from /sample-config-simple"
+		sudo cp /sample-config-simple/squidGuard.conf /etc/squidguard/squidGuard.conf
+		sudo mkdir -p /var/lib/squidguard/db/WL/
+		sudo cp /sample-config-simple/whiteUrls /var/lib/squidguard/db/WL/
+		sudo cp /sample-config-simple/whiteDomains /var/lib/squidguard/db/WL/
+		sudo chown proxy:proxy /var/lib/squidguard/db -R 
+	fi
+
+	sudo -u proxy squidGuard -C all 
+fi
+
 echo "running startSquidGuard with WPAT_IP=${WPAT_IP} WPAT_NOPROXY_NET=${WPAT_NOPROXY_NET} WPAT_NOPROXY_MASK=${WPAT_NOPROXY_MASK}"
 
 if [  "${WPAT_IP}" != "" ]; then
