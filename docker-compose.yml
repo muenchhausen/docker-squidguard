@@ -1,13 +1,18 @@
 squidguard:
-  build: .
-  #image: muenchhausen/docker-squidguard:latest
+  # either - build your git clone:
+  # build: .
+  # or use the image from docker hub:
+  image: muenchhausen/docker-squidguard:latest
   environment:
+    # WPAT is optinal 
     - WPAT_IP=192.168.99.100
     - WPAT_NOPROXY_NET=192.168.0.0
     - WPAT_NOPROXY_MASK=255.255.0.0
-    #- UPDATE_BLACKLIST_URL=http://www.shallalist.de/Downloads/shallalist.tar.gz
-    - SQUID_CONFIG_SOURCE_UID=1000          # if MAC OS is used: UserID for user proxy
-    - SQUID_CONFIG_SOURCE=/custom-config
+
+    - UPDATE_BLACKLIST_URL=http://www.shallalist.de/Downloads/shallalist.tar.gz
+    # to embed your own config folder e.g.:
+    #- SQUID_CONFIG_SOURCE=/custom-config
+    #- SQUID_CONFIG_SOURCE_UID=1000          # only required if MAC OS is used: UserID for user proxy
   ports:
     - "3128:3128"
     - "80:80"
@@ -15,4 +20,5 @@ squidguard:
     - 3128
     - 80
   volumes:
+    # example mapping for SQUID_CONFIG_SOURCE
     - /Users/derk/Documents/GitProjects/docker-squidguard/myconfig:/custom-config
