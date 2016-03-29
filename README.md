@@ -2,9 +2,7 @@
 
 this image is an [squidGuard](http://www.squidguard.org/) addition to [sameersbn/docker-squid](https://github.com/sameersbn/docker-squid). I find squidGuard very useful to limit access to certain internet pages and to reduce the risk for downloading dangerous software. A central filtering solution is preferred especially if you have a family with children and different devices.
 
-**new: You can run this container with own white- and blacklists or with public available lists from an external source.** Recommended  blacklists are provided by [shallalist](http://www.shallalist.de/) - with some license restrictions especially for commercial use.
-
-This image includes also automatic proxy discovery based on WPAT and DHCP. Here a Webserver is required that serves wpat.dat.
+**new: You can run this container with own white- and blacklists or with public available lists from an external source.** Recommended blacklists are provided by [shallalist](http://www.shallalist.de/) - with some license restrictions especially for commercial use.
 
 ## Sample 1: black- and whitelists from [shallalist](http://www.shallalist.de/) 
 
@@ -21,9 +19,9 @@ squidguard:
     - 3128
     - 80
 ```
-Setting the env Variable UPDATE_BLACKLIST_URL, the configuration in folder [sample-config-blacklist](https://github.com/muenchhausen/docker-squidguard/blob/master/sample-config-blacklist) will be used. Otherwise the [sample-config-simple](https://github.com/muenchhausen/docker-squidguard/blob/master/sample-config-simple) is used. In practise you need to configure your own black- and whitelists - see the next sample.
+Setting the env Variable UPDATE_BLACKLIST_URL, the configuration in folder [sample-config-blacklist](https://github.com/muenchhausen/docker-squidguard/blob/master/sample-config-blacklist) will be used. Otherwise the [sample-config-simple](https://github.com/muenchhausen/docker-squidguard/blob/master/sample-config-simple) is used. In practice you need to configure your own black- and whitelists - see the next sample.
 
-## Sample 2: own whitelists with docker-compose
+## Sample 2: own whitelists
 
 create a docker-compose.yml file ( this [docker-compose.yml](https://github.com/muenchhausen/docker-squidguard/blob/master/docker-compose.yml) includes comments to all variations ) :
 ```
@@ -91,7 +89,7 @@ docker-compose stop && docker-compose rm -f && docker-compose build && docker-co
 
 ## Additions
 
-WPAT proxy settings allow your Operating system to find the settings automatically based on your DHCP settings:
+This image includes also automatic proxy discovery based on WPAT and DHCP. The included Webserver serves wpat.dat.
 
 ```docker run --name='squidguard' -it --env WPAT_IP=192.168.99.100 --env WPAT_NOPROXY_NET=192.168.99.0 --env WPAT_NOPROXY_MASK=255.255.255.0 --rm -p 3128:3128 -p 80:80 muenchhausen/docker-squidguard:latest```
 
@@ -100,20 +98,20 @@ To use WPAT, add a cusom-proxy-server option 252 to your DHCP server. Use "http:
 You can add these settings also to your compose file - see here: [docker-compose.yml](https://github.com/muenchhausen/docker-squidguard/blob/master/docker-compose.yml)
 
 
-## recommended documentation
+### recommended documentation
 
 For Squid basis configuration, please refer to the documentation of [sameersbn/docker-squid](https://github.com/sameersbn/docker-squid).
 
 A simple documentation of how to configure squidGuard blacklists can be found in the [squidGuard configuration documentation](http://www.squidguard.org/Doc/configure.html).
 
 
-## Shell Access
+### Shell Access
 
 For debugging and maintenance purposes you may want access the containers shell. Either add after the run command or tun e.g.
 
 ```docker exec -it dockersquidguard_squidguard_1 bash```
 
-## Autostart the container
+### Autostart the container
 
 add the parameter --restart=always to your docker run command.
 
