@@ -2,13 +2,13 @@
 
 this image is an [squidGuard](http://www.squidguard.org/) addition to [sameersbn/docker-squid](https://github.com/sameersbn/docker-squid). I find squidGuard very useful to limit access to certain internet pages and to reduce the risk for downloading dangerous software. A central filtering solution is preferred especially if you have a family with children and different devices.
 
-**new: You can run this container with own white- and blacklists or with public available lists from an external source. Recommended are the blacklists from [shallalist](http://www.shallalist.de/) - with some license restrictions especially for commercial use.**
+**new: You can run this container with own white- and blacklists or with public available lists from an external source.** Recommended  blacklists are provided by [shallalist](http://www.shallalist.de/) - with some license restrictions especially for commercial use.
 
 This image includes also automatic proxy discovery based on WPAT and DHCP. Here a Webserver is required that serves wpat.dat.
 
-## Sample 1: use GPL black- and whitelists from [shallalist](http://www.shallalist.de/) 
+## Sample 1: black- and whitelists from [shallalist](http://www.shallalist.de/) 
 
-create a docker-compose-yml file e.g.
+create a docker-compose.yml file
 ```
 squidguard:
   image: muenchhausen/docker-squidguard:latest
@@ -23,7 +23,7 @@ squidguard:
 ```
 Setting the env Variable UPDATE_BLACKLIST_URL, the configuration in folder [sample-config-blacklist](https://github.com/muenchhausen/docker-squidguard/blob/master/sample-config-blacklist) will be used. Otherwise the [sample-config-simple](https://github.com/muenchhausen/docker-squidguard/blob/master/sample-config-simple) is used. In practise you need to configure your own black- and whitelists - see the next sample.
 
-## Sample 2: run your own whitelists with docker-compose
+## Sample 2: own whitelists with docker-compose
 
 create a docker-compose.yml file ( this [docker-compose.yml](https://github.com/muenchhausen/docker-squidguard/blob/master/docker-compose.yml) includes comments to all variations ) :
 ```
