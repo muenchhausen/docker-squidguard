@@ -97,6 +97,24 @@ To use WPAD, add a cusom-proxy-server option 252 to your DHCP server. Use "http:
 
 You can add these settings also to your compose file - see here: [docker-compose.yml](https://github.com/muenchhausen/docker-squidguard/blob/master/docker-compose.yml)
 
+The default WPAD settings are the following:
+```
+function FindProxyForURL(url, host)
+{
+	if (isInNet(host, "{{WPAD_NOPROXY_NET}}", "{{WPAD_NOPROXY_MASK}}"))
+		return "DIRECT";
+	else
+		return "PROXY {{WPAD_IP}}:3128";
+}
+```
+You can put your custom wpad.dat file to your mapped config folder.
+
+The stabdard message for a blocked page is 
+```
+This URL was blocked by your docker-squidguard!
+```
+You can modify this, if you place your custom block.html file to your mapped config folder.
+
 ### recommended documentation
 
 For Squid basis configuration, please refer to the documentation of [sameersbn/docker-squid](https://github.com/sameersbn/docker-squid).
