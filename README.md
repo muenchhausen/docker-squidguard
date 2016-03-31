@@ -85,18 +85,17 @@ docker-compose stop && docker-compose rm -f && docker-compose build && docker-co
 
 * test it in your Browser: Set docker host IP and port 3128 in your proxy settings or operating system proxy configuration.
 
-* if you decided for the WPAT autoproxy variant, just do now a DHCP release and you get your proxy settings :)
+* if you decided for the WPAD autoproxy variant, just do now a DHCP release and you get your proxy settings :)
 
 ## Additions
 
-This image includes also automatic proxy discovery based on WPAT and DHCP. The included Webserver serves wpat.dat.
+This image includes also automatic proxy discovery based on WPAD and DHCP. The included Webserver serves wpad.dat.
 
-```docker run --name='squidguard' -it --env WPAT_IP=192.168.99.100 --env WPAT_NOPROXY_NET=192.168.99.0 --env WPAT_NOPROXY_MASK=255.255.255.0 --rm -p 3128:3128 -p 80:80 muenchhausen/docker-squidguard:latest```
+```docker run --name='squidguard' -it --env WPAD_IP=192.168.99.100 --env WPAD_NOPROXY_NET=192.168.99.0 --env WPAD_NOPROXY_MASK=255.255.255.0 --rm -p 3128:3128 -p 80:80 muenchhausen/docker-squidguard:latest```
 
-To use WPAT, add a cusom-proxy-server option 252 to your DHCP server. Use "http://${WPAT_IP}/wpat.dat" e.g. "http://192.168.59.103/wpat.dat" as your option value. See [squidGuard Wiki](http://wiki.squid-cache.org/SquidFaq/ConfiguringBrowsers#Automatic_WPAD_with_DHCP) for further details.
+To use WPAD, add a cusom-proxy-server option 252 to your DHCP server. Use "http://${WPAD_IP}/wpad.dat" e.g. "http://192.168.59.103/wpad.dat" as your option value. See [squidGuard Wiki](http://wiki.squid-cache.org/SquidFaq/ConfiguringBrowsers#Automatic_WPAD_with_DHCP) for further details.
 
 You can add these settings also to your compose file - see here: [docker-compose.yml](https://github.com/muenchhausen/docker-squidguard/blob/master/docker-compose.yml)
-
 
 ### recommended documentation
 

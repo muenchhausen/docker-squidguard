@@ -1,13 +1,13 @@
 squidguard:
   # either - build your git clone:
-  # build: .
+  build: .
   # or use the image from docker hub:
-  image: muenchhausen/docker-squidguard:latest
+  # image: muenchhausen/docker-squidguard:latest
   environment:
-    # WPAT is optinal 
-    - WPAT_IP=192.168.99.100
-    - WPAT_NOPROXY_NET=192.168.0.0
-    - WPAT_NOPROXY_MASK=255.255.0.0
+    # WPAD is optinal 
+    - WPAD_IP=192.168.99.100
+    - WPAD_NOPROXY_NET=192.168.0.0
+    - WPAD_NOPROXY_MASK=255.255.0.0
 
     - UPDATE_BLACKLIST_URL=http://www.shallalist.de/Downloads/shallalist.tar.gz
     # to embed your own config folder e.g.:

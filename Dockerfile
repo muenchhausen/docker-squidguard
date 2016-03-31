@@ -6,7 +6,9 @@ RUN apt-get update \
  && apt-get install -y apache2
 
 RUN echo 'AddType application/x-ns-proxy-autoconfig .dat' >> /etc/apache2/httpd.conf
-ADD wpat.dat /var/www/html/wpat.dat
+ADD wpad.dat /var/www/html/wpad.dat
+# for backward compatibility add it also with typo ;)
+ADD wpad.dat /var/www/html/wpat.dat
 ADD block.html /var/www/html/block.html
 
 RUN echo "redirect_program /usr/bin/squidGuard -c /etc/squidguard/squidGuard.conf" >> /etc/squid3/squid.conf
