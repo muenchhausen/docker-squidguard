@@ -23,7 +23,7 @@ Setting the env Variable UPDATE_BLACKLIST_URL, the configuration in folder [samp
 
 ## Sample 2: own whitelists
 
-create a docker-compose.yml file ( this [docker-compose.yml](https://github.com/muenchhausen/docker-squidguard/blob/master/docker-compose.yml) includes comments to all variations ) :
+create a docker-compose.yml file:
 ```
 squidguard:
   image: muenchhausen/docker-squidguard:latest
@@ -37,8 +37,9 @@ squidguard:
     - 3128
     - 80
   volumes:
-    - /Users/derk/myconfig:/custom-config
+    - /Users/derk/myconfig:/custom-config     # please set here your PATH to your config folder!
 ```
+See this [docker-compose.yml](https://github.com/muenchhausen/docker-squidguard/blob/master/docker-compose.yml) file for all possible settings.
 
 create a ```squidGuard.conf``` file in your local myconfig directory
 ```
@@ -89,13 +90,23 @@ docker-compose stop && docker-compose rm -f && docker-compose build && docker-co
 
 ## Additions
 
-This image includes also automatic proxy discovery based on WPAD and DHCP. The included Webserver serves wpad.dat.
+### Web Proxy Autodiscovery Protocol (WPAD)
 
-```docker run --name='squidguard' -it --env WPAD_IP=192.168.99.100 --env WPAD_NOPROXY_NET=192.168.99.0 --env WPAD_NOPROXY_MASK=255.255.255.0 --rm -p 3128:3128 -p 80:80 muenchhausen/docker-squidguard:latest```
+This image includes also automatic proxy discovery based on [WPAD](https://en.wikipedia.org/wiki/Web_Proxy_Autodiscovery_Protocol) and DHCP. The included Webserver serves wpad.dat.
+
+add the following to your docker-compose.yml file 
+```
+squidguard:
+  ...
+  environment:
+    - WPAD_IP=192.168.99.100
+    - WPAD_NOPROXY_NET=192.168.0.0
+    - WPAD_NOPROXY_MASK=255.255.0.0
+```
 
 To use WPAD, add a cusom-proxy-server option 252 to your DHCP server. Use "http://${WPAD_IP}/wpad.dat" e.g. "http://192.168.59.103/wpad.dat" as your option value. See [squidGuard Wiki](http://wiki.squid-cache.org/SquidFaq/ConfiguringBrowsers#Automatic_WPAD_with_DHCP) for further details.
 
-You can add these settings also to your compose file - see here: [docker-compose.yml](https://github.com/muenchhausen/docker-squidguard/blob/master/docker-compose.yml)
+You can add these settings also to your compose file - 
 
 The default WPAD settings are the following:
 ```
@@ -109,11 +120,12 @@ function FindProxyForURL(url, host)
 ```
 You can put your custom wpad.dat file to your mapped config folder.
 
-The stabdard message for a blocked page is 
+The standard message for a blocked page is 
 ```
 This URL was blocked by your docker-squidguard!
 ```
 You can modify this, if you place your custom block.html file to your mapped config folder.
+
 
 ### recommended documentation
 
@@ -121,6 +133,11 @@ For Squid basis configuration, please refer to the documentation of [sameersbn/d
 
 A simple documentation of how to configure squidGuard blacklists can be found in the [squidGuard configuration documentation](http://www.squidguard.org/Doc/configure.html).
 
+
+### run it without docker-compose
+it is of course possible to run the container also without docker-compose - e.g.:
+
+```docker run --name='squidguard' -it --env WPAD_IP=192.168.99.100 --env WPAD_NOPROXY_NET=192.168.99.0 --env WPAD_NOPROXY_MASK=255.255.255.0 --rm -p 3128:3128 -p 80:80 muenchhausen/docker-squidguard:latest```
 
 ### Shell Access
 
