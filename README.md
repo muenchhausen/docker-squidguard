@@ -29,7 +29,7 @@ squidguard:
   image: muenchhausen/docker-squidguard:latest
   environment:
     - SQUID_CONFIG_SOURCE=/custom-config
-    - SQUID_CONFIG_SOURCE_UID=1000          # only required if MAC OS is used: UserID for user proxy
+    - SQUID_UID=1000          # only required if MAC OS is used: UserID for user proxy
   ports:
     - "3128:3128"
     - "80:80"

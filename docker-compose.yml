@@ -12,7 +12,7 @@ squidguard:
     # - UPDATE_BLACKLIST_URL=http://www.shallalist.de/Downloads/shallalist.tar.gz
     # to embed your own config folder with squidGuard.conf:
     #- SQUID_CONFIG_SOURCE=/custom-config
-    #- SQUID_CONFIG_SOURCE_UID=1000          # workaround for folder mapping problem on MAC OS: UserID for user proxy
+    #- SQUID_UID=1000          # workaround for folder mapping problem on MAC OS: UserID for user proxy
     # if you need your customized wpad.dat or block.html file, 
     #    simply place them to your host volume that is mapped to SQUID_CONFIG_SOURCE
   ports:
