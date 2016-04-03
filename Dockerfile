@@ -17,13 +17,12 @@ RUN rm /etc/squidguard/squidGuard.conf
 ADD sample-config-blacklist /sample-config-blacklist
 ADD sample-config-simple /sample-config-simple
 RUN mkdir /custom-config
-RUN chown -R proxy:proxy /sample-config-simple /sample-config-blacklist /custom-config
 
 ADD startSquidGuard /startSquidGuard
 RUN chmod a+x /startSquidGuard
 
 EXPOSE 3128 80
-VOLUME ["/var/spool/squid3"]
+VOLUME ["/var/log/squid3"]
 VOLUME ["/custom-config"]
 
 CMD ["/startSquidGuard"]

@@ -9,7 +9,7 @@ squidguard:
     - WPAD_NOPROXY_NET=192.168.0.0
     - WPAD_NOPROXY_MASK=255.255.0.0
     # blacklisting is optional: please read license of shallalist.de - there are restrictions for commercial use
-    # - UPDATE_BLACKLIST_URL=http://www.shallalist.de/Downloads/shallalist.tar.gz
+    #- UPDATE_BLACKLIST_URL=http://www.shallalist.de/Downloads/shallalist.tar.gz
     # to embed your own config folder with squidGuard.conf:
     #- SQUID_CONFIG_SOURCE=/custom-config
     #- SQUID_UID=1000          # workaround for folder mapping problem on MAC OS: UserID for user proxy
@@ -24,3 +24,5 @@ squidguard:
   #volumes:
     # example mapping for SQUID_CONFIG_SOURCE
     #- /Users/derk/Documents/GitProjects/docker-squidguard/myconfig:/custom-config
+    # example mapping for squid log directory
+    #- /Users/derk/Documents/GitProjects/docker-squidguard/mylog:/var/log/squid3

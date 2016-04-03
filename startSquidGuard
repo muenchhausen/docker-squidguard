@@ -8,12 +8,16 @@ if [  "${UPDATE_BLACKLIST_URL}" != "" ]; then
  		&& chown proxy:proxy /var/lib/squidguard/db -R
 fi
 
-if [  "${SQUID_UID}" != "" ]; then
-	# workaround for mac os mapping problem:
-	sudo usermod -u ${SQUID_UID} proxy
-fi
 
 if [ ! -f /etc/squidguard/squidGuard.conf ]; then
+	# if this file doesn't exist -> it is the first time
+	if [  "${SQUID_UID}" != "" ]; then
+		# workaround for mac os mapping problem:
+		sudo usermod -u ${SQUID_UID} proxy
+	fi
+	# chown is required especially because directories can be mapped
+	chown -R proxy:proxy /var/lib/squidguard/db /sample-config-simple /sample-config-blacklist /custom-config /var/log/squid3
+
 	if [  "${SQUID_CONFIG_SOURCE}" != "" ]; then
 		echo "no configuration found -> use ${SQUID_CONFIG_SOURCE}/squidGuard.conf"		
 		ln -s ${SQUID_CONFIG_SOURCE}/squidGuard.conf /etc/squidguard/squidGuard.conf
@@ -24,9 +28,7 @@ if [ ! -f /etc/squidguard/squidGuard.conf ]; then
 	    echo "no configuration found -> use /sample-config-simple"
 		ln -s /sample-config-simple/squidGuard.conf /etc/squidguard/squidGuard.conf
 	fi
-	sudo chown -R proxy:proxy /var/lib/squidguard/db
 fi
-sudo -u proxy squidGuard -C all
 
 echo "running startSquidGuard with WPAD_IP=${WPAD_IP} WPAD_NOPROXY_NET=${WPAD_NOPROXY_NET} WPAD_NOPROXY_MASK=${WPAD_NOPROXY_MASK}"
 
