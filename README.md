@@ -137,7 +137,7 @@ A simple documentation of how to configure squidGuard blacklists can be found in
 ### run it without docker-compose
 it is of course possible to run the container also without docker-compose - e.g.:
 
-```docker run --name='squidguard' -it --env WPAD_IP=192.168.99.100 --env WPAD_NOPROXY_NET=192.168.99.0 --env WPAD_NOPROXY_MASK=255.255.255.0 --rm -p 3128:3128 -p 80:80 muenchhausen/docker-squidguard:latest```
+```docker run --name='squidguard' -it --env UPDATE_BLACKLIST_URL=http://www.shallalist.de/Downloads/shallalist.tar.gz --env WPAD_IP=192.168.99.100 --env WPAD_NOPROXY_NET=192.168.99.0 --env WPAD_NOPROXY_MASK=255.255.255.0 --rm -p 3128:3128 -p 80:80 muenchhausen/docker-squidguard:latest```
 
 ### Shell Access
 
