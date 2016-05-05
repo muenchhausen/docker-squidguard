@@ -4,6 +4,10 @@ this image is an [squidGuard](http://www.squidguard.org/) addition to [sameersbn
 
 **new: You can run this container with own white- and blacklists or with public available lists from an external source.** Recommended blacklists are provided by [shallalist](http://www.shallalist.de/) - with some license restrictions especially for commercial use.
 
+**new: You can combine this Container extremely simple with [sebp/elk](https://hub.docker.com/r/sebp/elk/). Just follow the instructions in [muenchhausen/docker-squidguard-elk](https://github.com/muenchhausen/docker-squidguard-elk)!
+
+![Screenshot](img/kibana.png) 
+
 ## Sample 1: black- and whitelists from [shallalist](http://www.shallalist.de/) 
 
 create a docker-compose.yml file
