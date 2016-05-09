@@ -1,4 +1,4 @@
-## Introduction
+## Introduction [![Build Status](https://travis-ci.org/muenchhausen/docker-squidguard.svg?branch=master)](https://travis-ci.org/muenchhausen/docker-squidguard)
 
 this image is an [squidGuard](http://www.squidguard.org/) addition to [sameersbn/docker-squid](https://github.com/sameersbn/docker-squid). I find squidGuard very useful to limit access to certain internet pages and to reduce the risk for downloading dangerous software. A central filtering solution is preferred especially if you have a family with children and different devices.
 
@@ -74,6 +74,9 @@ create a ```whiteUrls``` file in your local myconfig directory
 ```
 github.com/muenchhausen/
 ```
+
+## Sample 3: own blacklists combined with [shallalist](http://www.shallalist.de/) 
+see [muenchhausen/docker-squidguard-elk](https://github.com/muenchhausen/docker-squidguard-elk/tree/master/myconfig) !
 
 ## Run and Test it! 
 

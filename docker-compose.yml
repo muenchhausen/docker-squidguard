@@ -4,7 +4,7 @@ squidguard:
   # or use the image from docker hub:
   image: muenchhausen/docker-squidguard:latest
   environment:
-    # WPAD is optinal 
+    # WPAD is optional 
     - WPAD_IP=192.168.99.100
     - WPAD_NOPROXY_NET=192.168.0.0
     - WPAD_NOPROXY_MASK=255.255.0.0

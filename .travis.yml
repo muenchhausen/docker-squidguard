@@ -1,0 +1,32 @@
+sudo: required
+services:
+  - docker
+
+env:
+  DOCKER_COMPOSE_VERSION: 1.5.2
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+script:
+  - docker-compose build
+  - docker-compose up -d
+  # everything running?
+  - docker-compose ps
+  - docker-compose ps squidguard | grep Up
+  - docker-compose exec squidguard apt-get install -y curl
+  # wpad should be available
+  - docker-compose exec squidguard curl --retry 10 --retry-delay 5 -v -s -L -o /dev/null http://localhost/wpat.dat
+  # muenchhausen.de should not be blocked
+  - docker-compose exec squidguard curl --retry 10 --retry-delay 5 -v -s -L -o /dev/null -x http://localhost:3128 http://www.muenchhausen.de
+  - docker-compose exec squidguard grep -E 'muenchhausen\.de/? - HIER_DIRECT/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' /var/log/squid3/access.log
+  # test.com should be blocked because it is not in the whitelist
+  - docker-compose exec squidguard curl --retry 10 --retry-delay 5 -v -s -L -x http://localhost:3128 http://test.com | grep "This URL was blocked"
+  - docker-compose exec squidguard grep -E 'test\.com/? - HIER_DIRECT/::1' /var/log/squid3/access.log
+
+notifications:
+  email:
+    - derk@muenchhausen.de
