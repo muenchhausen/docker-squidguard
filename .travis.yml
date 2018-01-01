@@ -21,8 +21,8 @@ script:
   - docker-compose run squidguard wget -o /dev/null http://squidguard/wpat.dat
   # muenchhausen.de should not be blocked
   - docker-compose run squidguard wget -e use_proxy=yes -e http_proxy=http://squidguard:3128 -o /dev/null http://www.muenchhausen.de
-  # test.com should be blocked because it is not in the whitelist
-  - docker-compose run squidguard wget -e use_proxy=yes -e http_proxy=http://squidguard:3128 -qO- http://test.com | grep "This URL was blocked"
+  # lemonlime.de should be blocked because it is not in the whitelist
+  - docker-compose run squidguard wget -e use_proxy=yes -e http_proxy=http://squidguard:3128 --content-on-error -qO- http://www.lemonlime.de | grep "block"
 
 notifications:
   email:
